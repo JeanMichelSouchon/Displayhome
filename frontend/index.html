@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Vitrine</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <!-- Planète en 3D -->
+        <div id="planet-container">
+            <canvas id="planet"></canvas>
+        </div>
+
+        <!-- Widget radio à gauche -->
+        <div id="radio-widget">
+            <iframe src="https://player.radioking.io/abc-dance/?c=%23000000&c2=%23FBFAF7&f=h&i=1&p=1&s=1&li=1&popup=1&plc=NaN&h=undefined&l=850&v=2"></iframe>
+            <!-- Section de prise de notes -->
+            <div id="note-section">
+                <h4>Prise de Notes</h4>
+                <textarea id="note-area" placeholder="Écrivez vos notes ici..."></textarea>
+                <button id="save-note">Enregistrer</button>
+            </div>
+        </div>
+
+        <!-- Actualités à droite -->
+        <div id="news">
+            <iframe width="100%" height="100%" src="https://rss.app/embed/v1/list/thqLWG2p3wtEYJZS" ></iframe>
+
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

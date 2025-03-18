@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;
+    color: white;
+    flex-direction: column;
+}
+
+#container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#planet-container {
+    width: 99%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#radio-widget {
+    background-color: rgba(240, 248, 255, 0.431);
+    border: 2px black solid;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    height: 99%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    z-index: 2;
+}
+
+#radio-widget iframe {
+    border: 0px;
+    margin: 5px;
+    border-radius: 5px;
+    height: 145px;
+    width: 470px;
+}
+
+#news {
+    right: 10px;
+    background-color: rgba(240, 248, 255, 0.431);
+    border: 2px black solid;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    height: 99%;
+    position: absolute;
+    z-index: 2;
+    width: 50vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+#news iframe{
+overflow-y: hidden;
+}
+
+
+#note-section {
+    margin-top: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#note-section h4 {
+    color: black;
+    margin-bottom: 5px;
+}
+
+#note-area {
+    width: 90%;
+    height: 80px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+}
+
+#save-note {
+    margin-top: 5px;
+    padding: 5px 10px;
+    border: none;
+    background: #0077ff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#save-note:hover {
+    background: #005bb5;
+}
+
+
