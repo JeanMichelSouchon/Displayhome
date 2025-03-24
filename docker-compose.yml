@@ -1,37 +1,30 @@
+
 services:
-  mariadb:
-    build: ./database
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: mydatabase
-      MYSQL_USER: myuser
-      MYSQL_PASSWORD: mypassword
-    volumes:
-      - ./database/datas:/var/lib/mysql
-    ports:
-      - "3307:3306"
-    networks:
-      - backend-network
 
   backend:
     build: ./backend
+    image: eu.gcr.io/thehomedisplay/backend
     ports:
       - "3000:3000"
-    depends_on:
-      - mariadb
     environment:
-      DB_HOST: mariadb
+      DB_HOST: /cloudsql/thehomedisplay:europe-west1:thehomedisplay
       DB_USER: myuser
       DB_PASSWORD: mypassword
-      DB_NAME: mydatabase
+      DB_NAME: iddlesaur
       JWT_SECRET: mySuperSecretKey
+      DEFAULT_ADMIN_NAME: admin
+      DEFAULT_ADMIN_PASSWORD: password
     networks:
       - backend-network
 
-volumes:
-  mariadb-data:
+  frontend:
+    build: ./frontend
+    image: eu.gcr.io/thehomedisplay/frontend
+    ports:
+      - "8080:80"
+    networks:
+      - backend-network
 
 networks:
   backend-network:
     driver: bridge
-    

@@ -8,13 +8,13 @@ echo ********************************************
 echo.
 
 REM -- Configuration du projet et des images --
-set "PROJECT_ID=displayhome"
+set "PROJECT_ID=thehomedisplay"
 REM Utilisez la région où se trouve votre instance Cloud SQL.
-set "REGION=europe-west9"
+set "REGION=europe-west1"
 
 REM On ne déploie plus MariaDB, on déploie uniquement backend et frontend
-set "BACKEND_IMAGE=gcr.io/%PROJECT_ID%/backend"
-set "FRONTEND_IMAGE=gcr.io/%PROJECT_ID%/frontend"
+set "BACKEND_IMAGE=eu.gcr.io/%PROJECT_ID%/backend"
+set "FRONTEND_IMAGE=eu.gcr.io/%PROJECT_ID%/frontend"
 
 echo [DEBUG] Configuration du projet GCP vers %PROJECT_ID%...
 call gcloud config set project %PROJECT_ID%
@@ -75,13 +75,13 @@ echo ********************************************
 echo Déploiement du service backend sur Cloud Run (avec Cloud SQL et timeout augmenté)
 echo ********************************************
 call gcloud run deploy backend-service ^
-  --image gcr.io/displayhome/backend ^
+  --image eu.gcr.io/thehomedisplay/backend ^
   --region %REGION% ^
   --platform managed ^
   --allow-unauthenticated ^
   --port 3000 ^
-  --set-env-vars DB_HOST=/cloudsql/displayhome:europe-west9:displayhome,DB_USER=myuser,DB_PASSWORD=mypassword,DB_NAME=db1,JWT_SECRET=mySuperSecretKey,DEFAULT_ADMIN_NAME=admin,DEFAULT_ADMIN_PASSWORD=password ^
-  --add-cloudsql-instances=displayhome:europe-west9:displayhome ^
+  --set-env-vars DB_HOST=/cloudsql/thehomedisplay:europe-west1:thehomedisplay,DB_USER=myroot,DB_PASSWORD=mypassword,DB_NAME=db1,JWT_SECRET=mySuperSecretKey,DEFAULT_ADMIN_NAME=admin,DEFAULT_ADMIN_PASSWORD=password ^
+  --add-cloudsql-instances=thehomedisplay:europe-west1:thehomedisplay ^
   --timeout=300s
 if errorlevel 1 (
     echo ERREUR : Une erreur s'est produite lors du déploiement du service backend.
@@ -95,7 +95,7 @@ echo ********************************************
 echo Déploiement du service frontend sur Cloud Run
 echo ********************************************
 call gcloud run deploy frontend-service ^
-  --image gcr.io/displayhome/frontend ^
+  --image eu.gcr.io/thehomedisplay/frontend ^
   --region %REGION% ^
   --platform managed ^
   --allow-unauthenticated ^
