@@ -14,7 +14,6 @@ set "REGION=europe-west1"
 
 REM On ne déploie plus MariaDB, on déploie uniquement backend et frontend
 set "BACKEND_IMAGE=eu.gcr.io/%PROJECT_ID%/backend"
-set "FRONTEND_IMAGE=eu.gcr.io/%PROJECT_ID%/frontend"
 
 echo [DEBUG] Configuration du projet GCP vers %PROJECT_ID%...
 call gcloud config set project %PROJECT_ID%
@@ -52,16 +51,6 @@ if errorlevel 1 (
 echo [DEBUG] Poussée de l'image backend terminée.
 echo.
 
-echo [DEBUG] Poussée de l'image frontend...
-docker push %FRONTEND_IMAGE%
-if errorlevel 1 (
-    echo ERREUR : Une erreur s'est produite lors du push de l'image frontend.
-    pause
-    exit /b 1
-)
-echo [DEBUG] Poussée de l'image frontend terminée.
-echo.
-
 echo ********************************************
 set /p CONFIRM="Les images ont été poussées sur GCR. Voulez-vous déployer les services sur Cloud Run ? (y/n) : "
 if /I not "%CONFIRM%"=="y" (
@@ -74,7 +63,7 @@ echo.
 echo ********************************************
 echo Déploiement du service backend sur Cloud Run (avec Cloud SQL et timeout augmenté)
 echo ********************************************
-call gcloud run deploy backend-service ^
+call gcloud run deploy --set-env-vars backend-service ^
   --image eu.gcr.io/thehomedisplay/backend ^
   --region %REGION% ^
   --platform managed ^
@@ -89,24 +78,6 @@ if errorlevel 1 (
     exit /b 1
 )
 echo [DEBUG] Service backend déployé.
-echo.
-
-echo ********************************************
-echo Déploiement du service frontend sur Cloud Run
-echo ********************************************
-call gcloud run deploy frontend-service ^
-  --image eu.gcr.io/thehomedisplay/frontend ^
-  --region %REGION% ^
-  --platform managed ^
-  --allow-unauthenticated ^
-  --port 80 ^
-  --quiet
-if errorlevel 1 (
-    echo ERREUR : Une erreur s'est produite lors du déploiement du service frontend.
-    pause
-    exit /b 1
-)
-echo [DEBUG] Service frontend déployé.
 echo.
 
 echo ********************************************

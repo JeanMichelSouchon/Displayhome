@@ -17,14 +17,6 @@ services:
     networks:
       - backend-network
 
-  frontend:
-    build: ./frontend
-    image: eu.gcr.io/thehomedisplay/frontend
-    ports:
-      - "8080:80"
-    networks:
-      - backend-network
-
 networks:
   backend-network:
     driver: bridge
