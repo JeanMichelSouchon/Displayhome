@@ -8,9 +8,9 @@ services:
       - "3000:3000"
     environment:
       DB_HOST: /cloudsql/thehomedisplay:europe-west1:thehomedisplay
-      DB_USER: myuser
+      DB_USER: myroot
       DB_PASSWORD: mypassword
-      DB_NAME: iddlesaur
+      DB_NAME: thehomedisplay
       JWT_SECRET: mySuperSecretKey
       DEFAULT_ADMIN_NAME: admin
       DEFAULT_ADMIN_PASSWORD: password

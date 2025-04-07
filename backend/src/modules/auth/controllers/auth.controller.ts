@@ -55,35 +55,18 @@ export class AuthController {
         return;
       }
   
-      const { token, user } = await this.authService.login(identifier, password);
+      const {user } = await this.authService.login(identifier, password);
   
       // Transformer l'utilisateur en DTO
       const userDTO = plainToInstance(UserDTO, user);
   
-      res.status(200).json({ message: 'Connexion réussie', token, user: userDTO });
+      res.status(200).json({ message: 'Connexion réussie',user: userDTO });
     } catch (error: any) {
       console.error('Erreur lors de la connexion:', error);
       res.status(401).json({ message: error.message });
     }
   };
 
-  public verifyToken = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const token = req.headers.authorization?.split(' ')[1];
-      if (!token) {
-        res.status(400).json({ message: 'Token manquant' });
-        return;
-      }
-
-      const user = await this.authService.verifyToken(token);
-
-      const userDTO = plainToInstance(UserDTO, user);
-
-      res.status(200).json({ message: 'Token valide', user: userDTO });
-    } catch (error: any) {
-      res.status(401).json({ message: error.message || 'Token invalide ou expiré' });
-    }
-  };
 
   // Méthode pour réinitialiser le mot de passe
   public resetPassword = async (req: Request, res: Response): Promise<void> => {

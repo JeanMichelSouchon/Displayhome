@@ -1,5 +1,4 @@
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../../../common/database/db';
 import { User } from '../../users/models/user.interface';
@@ -14,7 +13,7 @@ export class AuthService {
   // Créer un nouvel utilisateur
   private async createUser(username: string, email: string, passwordHash: string): Promise<number> {
     try {
-      const query = 'INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?, ?)';
+      const query = 'INSERT INTO user (username, email, password_hash) VALUES (?, ?, ?)';
       const [result] = await pool.query(query, [username, email, passwordHash]);
       const res = result as any;
       return res.insertId;
@@ -68,46 +67,6 @@ export class AuthService {
     }
   }
 
-  // Génération du token JWT
-  private generateToken(user: User): string {
-    try {
-      if (!process.env.JWT_SECRET) {
-        throw new Error('JWT_SECRET est manquant dans les variables d\'environnement');
-      }
-
-      return jwt.sign(
-        { id: user.id, email: user.email },
-        process.env.JWT_SECRET,
-        { expiresIn: '1h' }
-      );
-    } catch (error) {
-      console.error('Erreur lors de la génération du token JWT:', error);
-      throw new Error('Erreur interne du serveur');
-    }
-  }
-
-  // Vérification du token JWT
-  public async verifyToken(token: string): Promise<User> {
-    try {
-      if (!process.env.JWT_SECRET) {
-        throw new Error('JWT_SECRET est manquant dans les variables d\'environnement');
-      }
-
-      const decoded = jwt.verify(token, process.env.JWT_SECRET) as { id: number };
-
-      const user = await this.findUserById(decoded.id);
-
-      if (!user) {
-        throw new Error('Utilisateur non trouvé ou supprimé');
-      }
-
-      return user;
-    } catch (error) {
-      console.error('Erreur lors de la vérification du token JWT:', error);
-      throw new Error('Token invalide, expiré ou utilisateur non trouvé');
-    }
-  }
-
 
   // Inscription d'un nouvel utilisateur
   public async signup(username: string, email: string, password: string): Promise<{ user: User;}> {
@@ -137,7 +96,7 @@ export class AuthService {
   }
 
   // Connexion de l'utilisateur
-  public async login(identifier: string, password: string): Promise<{ token: string; user: User }> {
+  public async login(identifier: string, password: string): Promise<{user: User }> {
     try {
       // Recherche l'utilisateur par email ou pseudo
       const user = identifier.includes('@')
@@ -153,9 +112,7 @@ export class AuthService {
         throw new Error('Identifiants invalides');
       }
   
-      const token = this.generateToken(user);
-  
-      return { token, user };
+      return {user };
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       throw error;

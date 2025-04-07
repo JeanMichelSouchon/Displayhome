@@ -15,7 +15,6 @@ export default function (authController: AuthController): Router {
 
   router.post('/reset-password', (req, res) => authController.resetPassword(req, res));
 
-  router.post('/verify-token', (req, res) => authController.verifyToken(req, res));
 
   return router;
 }

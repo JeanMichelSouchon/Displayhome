@@ -63,13 +63,13 @@ echo.
 echo ********************************************
 echo Déploiement du service backend sur Cloud Run (avec Cloud SQL et timeout augmenté)
 echo ********************************************
-call gcloud run deploy --set-env-vars backend-service ^
+call gcloud run deploy backend-service ^
   --image eu.gcr.io/thehomedisplay/backend ^
   --region %REGION% ^
   --platform managed ^
   --allow-unauthenticated ^
   --port 3000 ^
-  --set-env-vars DB_HOST=/cloudsql/thehomedisplay:europe-west1:thehomedisplay,DB_USER=myroot,DB_PASSWORD=mypassword,DB_NAME=db1,JWT_SECRET=mySuperSecretKey,DEFAULT_ADMIN_NAME=admin,DEFAULT_ADMIN_PASSWORD=password ^
+  --set-env-vars DB_HOST=/cloudsql/thehomedisplay:europe-west1:thehomedisplay,DB_USER=myroot,DB_PASSWORD=mypassword,DB_NAME=thehomedisplay,JWT_SECRET=mySuperSecretKey,DEFAULT_ADMIN_NAME=admin,DEFAULT_ADMIN_PASSWORD=password ^
   --add-cloudsql-instances=thehomedisplay:europe-west1:thehomedisplay ^
   --timeout=300s
 if errorlevel 1 (
