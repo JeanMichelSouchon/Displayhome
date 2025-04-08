@@ -13,6 +13,10 @@ const dbConfig = {
   connectionLimit: 10,
   queueLimit: 0,
 };
+console.log("host:",dbConfig.host);
+console.log("user:" ,dbConfig.user);
+console.log("pass:",dbConfig.password);
+console.log("database name: ",dbConfig.database);
 
 // Créer un pool de connexions
 const pool = mysql.createPool(dbConfig);

@@ -7,6 +7,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { errorHandlerMiddleware } from './common/middlewares/errorHandler';
 
 
+
 dotenv.config();
 
 const app: Application = express();
