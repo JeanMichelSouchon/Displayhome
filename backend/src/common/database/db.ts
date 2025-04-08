@@ -5,7 +5,9 @@ dotenv.config();
 
 // Configuration de la connexion à la base de données
 const dbConfig = {
-  host: process.env.DB_HOST,
+...(process.env.DB_HOST && process.env.DB_HOST.startsWith('/')
+    ? { socketPath: process.env.DB_HOST }
+    : { host: process.env.DB_HOST}),
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
@@ -13,10 +15,7 @@ const dbConfig = {
   connectionLimit: 10,
   queueLimit: 0,
 };
-console.log("host:",dbConfig.host);
-console.log("user:" ,dbConfig.user);
-console.log("pass:",dbConfig.password);
-console.log("database name: ",dbConfig.database);
+console.log("host:",dbConfig);
 
 // Créer un pool de connexions
 const pool = mysql.createPool(dbConfig);

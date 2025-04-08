@@ -7,7 +7,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DB_HOST: /cloudsql/thehomedisplay:europe-west1:thehomedisplay
+      DB_HOST: /cloudsql/thehomedisplay:europe-west9:thehomedisplayorigin
       DB_USER: myroot
       DB_PASSWORD: mypassword
       DB_NAME: thehomedisplay

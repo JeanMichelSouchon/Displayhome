@@ -10,7 +10,7 @@ echo.
 REM -- Configuration du projet et des images --
 set "PROJECT_ID=thehomedisplay"
 REM Utilisez la région où se trouve votre instance Cloud SQL.
-set "REGION=europe-west1"
+set "REGION=europe-west9"
 
 REM On ne déploie plus MariaDB, on déploie uniquement backend et frontend
 set "BACKEND_IMAGE=eu.gcr.io/%PROJECT_ID%/backend"
@@ -69,8 +69,8 @@ call gcloud run deploy backend-service ^
   --platform managed ^
   --allow-unauthenticated ^
   --port 3000 ^
-  --set-env-vars DB_HOST=/cloudsql/thehomedisplay:europe-west1:thehomedisplay,DB_USER=myroot,DB_PASSWORD=mypassword,DB_NAME=thehomedisplay,JWT_SECRET=mySuperSecretKey,DEFAULT_ADMIN_NAME=admin,DEFAULT_ADMIN_PASSWORD=password ^
-  --add-cloudsql-instances=thehomedisplay:europe-west1:thehomedisplay ^
+  --set-env-vars DB_HOST=/cloudsql/thehomedisplay:europe-west9:thehomedisplayorigin,DB_USER=myroot,DB_PASSWORD=mypassword,DB_NAME=thehomedisplay,JWT_SECRET=mySuperSecretKey,DEFAULT_ADMIN_NAME=admin,DEFAULT_ADMIN_PASSWORD=password ^
+  --add-cloudsql-instances=thehomedisplay:europe-west9:thehomedisplayorigin ^
   --timeout=300s
 if errorlevel 1 (
     echo ERREUR : Une erreur s'est produite lors du déploiement du service backend.

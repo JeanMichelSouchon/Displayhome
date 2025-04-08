@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.querySelector("#login-password").value;
   
         try {
-          const response = await fetch("https://backend-service-387352143812.europe-west1.run.app/auth/login", {
+          const response = await fetch("https://backend-service-387352143812.europe-west9.run.app/auth/login", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.querySelector("#signup-password").value;
   
         try {
-          const response = await fetch("https://backend-service-387352143812.europe-west1.run.app/auth/signup", {
+          const response = await fetch("https://backend-service-387352143812.europe-west9.run.app/auth/signup", {
             method: "POST",
             headers: {
               "Content-Type": "application/json"
