@@ -67,9 +67,8 @@ export class AuthService {
     }
   }
 
-
   // Inscription d'un nouvel utilisateur
-  public async signup(username: string, email: string, password: string): Promise<{ user: User;}> {
+  public async signup(username: string, email: string, password: string): Promise<{ user: User; }> {
     try {
       // Vérifier si l'utilisateur existe déjà
       const existingUser = await this.findUserByEmail(email);
@@ -88,7 +87,7 @@ export class AuthService {
         throw new Error('Erreur lors de la création de l\'utilisateur');
       }
 
-      return { user: newUser};
+      return { user: newUser };
     } catch (error) {
       console.error('Erreur lors de l\'inscription:', error);
       throw error;
@@ -96,29 +95,29 @@ export class AuthService {
   }
 
   // Connexion de l'utilisateur
-  public async login(identifier: string, password: string): Promise<{user: User }> {
+  public async login(identifier: string, password: string): Promise<{ user: User }> {
     try {
       // Recherche l'utilisateur par email ou pseudo
       const user = identifier.includes('@')
         ? await this.findUserByEmail(identifier)
         : await this.findUserByUsername(identifier);
-  
+
       if (!user) {
         throw new Error('Utilisateur non trouvé');
       }
-  
+
       const passwordValid = await this.checkPassword(password, user.password_hash);
       if (!passwordValid) {
         throw new Error('Identifiants invalides');
       }
-  
-      return {user };
+
+      return { user };
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
       throw error;
     }
   }
-  
+
   // Ajout de la méthode pour trouver un utilisateur par pseudo
   private async findUserByUsername(username: string): Promise<User | null> {
     try {

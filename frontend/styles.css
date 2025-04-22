@@ -73,10 +73,10 @@ body {
     justify-content: center;
     align-items: center;
 }
-#news iframe{
-overflow-y: hidden;
-}
 
+#news iframe {
+    overflow-y: hidden;
+}
 
 #note-section {
     margin-top: 10px;
@@ -117,5 +117,56 @@ overflow-y: hidden;
     background: #005bb5;
 }
 
+/* Section des notes enregistrées */
+#saved-notes {
+    margin-top: 20px;
+    width: 90%;
+    max-height: 400px;
+    overflow-y: auto;
+}
+#no-notes-message {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    color: gray; font-style: italic;
+}
+#notes-list {
+    list-style-type: none;
+    padding: 0;
+}
 
+.note {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
 
+.note p {
+    color: #000000;
+    margin: 0;
+    padding: 5px 0;
+}
+
+.note .note-date {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.note-date {
+    font-style: italic;
+    color: #666;
+}

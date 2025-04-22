@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { errorHandlerMiddleware } from './common/middlewares/errorHandler';
+import { NotesModule } from './modules/notes/notes.module';
 
 
 
@@ -22,10 +23,12 @@ app.use(express.json());
 // Modules
 const usersModule = new UsersModule();
 const authModule = new AuthModule();
+const notesModule = new NotesModule();
 
 // Routes
 app.use('/auth', authModule.router);
 app.use('/users', usersModule.router);
+app.use('/notes', notesModule.router);
 
 
 app.use(errorHandlerMiddleware);

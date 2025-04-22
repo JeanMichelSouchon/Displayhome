@@ -32,17 +32,107 @@ window.addEventListener('resize', () => {
 });
 
 
+
+
 // Gestion des notes
 document.addEventListener('DOMContentLoaded', () => {
     const noteArea = document.getElementById('note-area');
     const saveButton = document.getElementById('save-note');
-
-    // Charger la note sauvegardée
-    noteArea.value = localStorage.getItem('userNote') || '';
+    const notesList = document.getElementById('notes-list');
+    const noNotesMessage = document.getElementById('no-notes-message'); // Ajouter un élément pour afficher ce message
 
     // Sauvegarder la note lors du clic sur le bouton
-    saveButton.addEventListener('click', () => {
-        localStorage.setItem('userNote', noteArea.value);
-        alert('Note enregistrée !');
+    saveButton.addEventListener('click', async () => {
+        const noteText = noteArea.value;
+
+        if (noteText.trim() === '') {
+            alert('Veuillez écrire une note avant de sauvegarder.');
+            return;
+        }
+
+        try {
+            // Envoyer la note au backend via une requête POST
+            const response = await fetch('https://backend-service-387352143812.europe-west9.run.app/notes/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ note: noteText })
+            });
+
+            if (response.ok) {
+                alert('Note enregistrée !');
+                noteArea.value = ''; // Réinitialiser la zone de texte
+                loadNotes(); // Recharger les notes
+            } else {
+                alert('Erreur lors de l\'enregistrement de la note.');
+            }
+        } catch (error) {
+            console.error('Erreur de réseau ou autre:', error);
+            alert('Une erreur est survenue lors de l\'enregistrement de la note.');
+        }
     });
+
+    // Fonction pour récupérer et afficher les notes
+    function loadNotes() {
+        fetch('https://backend-service-387352143812.europe-west9.run.app/notes/all') // Assurez-vous que votre API est accessible à cette route
+            .then(response => response.json())
+            .then(notes => {
+                notesList.innerHTML = ''; // Vide la liste des notes existantes avant de réafficher
+                if (notes.length === 0) {
+                    // Afficher un message si aucune note n'est présente
+                    noNotesMessage.style.display = 'block';
+                } else {
+                    noNotesMessage.style.display = 'none';
+                    notes.forEach(note => {
+                        const noteElement = document.createElement('li');
+                        noteElement.classList.add('note');
+
+                        // Affichage de la note
+                        const noteContent = document.createElement('p');
+                        noteContent.textContent = note.note;
+
+                        // Affichage de la date et de l'heure
+                        const noteDate = document.createElement('p');
+                        noteDate.classList.add('note-date');
+                        const date = new Date(note.created_at); // Utilise le champ 'created_at' de la réponse
+                        noteDate.textContent = `Créé le ${date.toLocaleDateString()} à ${date.toLocaleTimeString()}`;
+
+                        // Bouton de suppression
+                        const deleteButton = document.createElement('button');
+                        deleteButton.textContent = 'Supprimer';
+                        deleteButton.classList.add('delete-button');
+                        deleteButton.addEventListener('click', () => deleteNote(note.id)); // Utiliser l'ID de la note pour la suppression
+
+                        // Ajouter le bouton de suppression à l'élément de la note
+                        noteElement.appendChild(noteContent);
+                        noteElement.appendChild(noteDate);
+                        noteElement.appendChild(deleteButton);
+
+                        // Ajouter l'élément de la note à la liste
+                        notesList.appendChild(noteElement);
+                    });
+                }
+            })
+            .catch(error => console.error('Erreur de récupération des notes :', error));
+    }
+
+    // Fonction pour supprimer une note
+    function deleteNote(noteId) {
+        fetch(`https://backend-service-387352143812.europe-west9.run.app/notes/delete/${noteId}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Note supprimée avec succès');
+                loadNotes(); // Recharger les notes après suppression
+            } else {
+                alert('Erreur lors de la suppression de la note.');
+            }
+        })
+        .catch(error => console.error('Erreur de suppression de la note :', error));
+    }
+
+    // Charger les notes existantes au chargement de la page
+    loadNotes();
 });
