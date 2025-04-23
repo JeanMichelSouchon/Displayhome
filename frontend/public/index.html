@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Connexion / Inscription</title>
+  <link rel="icon" href="assets/icons/favicon.png" type="image/png">
   <link rel="stylesheet" href="stylesauth.css" />
 </head>
+
 <body>
   <div class="container">
 
@@ -14,6 +16,7 @@
     <!-- Connexion -->
     <div class="form-container">
       <h2>Connexion</h2>
+      <div class="message" id="login-message"></div>
       <form id="login-form">
         <input type="email" id="login-email" placeholder="Email" required />
         <input type="password" id="login-password" placeholder="Mot de passe" required />
@@ -24,6 +27,7 @@
     <!-- Inscription -->
     <div class="form-container">
       <h2>Inscription</h2>
+      <div class="message" id="signup-message"></div>
       <form id="signup-form">
         <input type="text" id="signup-username" placeholder="Nom d'utilisateur" required />
         <input type="email" id="signup-email" placeholder="Email" required />

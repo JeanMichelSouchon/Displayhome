@@ -53,3 +53,8 @@ body {
     background: #45a049;
   }
   
+  .message {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.95rem;
+}

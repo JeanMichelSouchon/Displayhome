@@ -22,14 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
           const result = await response.json();
   
           if (response.ok) {
-            alert("Connexion réussie !");
+            displayMessage('login-message',"Connexion réussie !",'success');
             window.location.href = 'home.html';
           } else {
-            alert(result.message || "Erreur de connexion.");
+            displayMessage('login-message',result.message || "Erreur de connexion.",'error');
           }
         } catch (error) {
           console.error("Erreur lors de la connexion :", error);
-          alert("Impossible de se connecter au serveur.");
+          displayMessage('login-message',"Impossible de se connecter au serveur.",'error');
         }
       });
     }
@@ -54,15 +54,20 @@ document.addEventListener("DOMContentLoaded", () => {
           const result = await response.json();
   
           if (response.ok) {
-            alert("Inscription réussie !");
+            displayMessage('signup-message',"Inscription réussie !", 'success');
           } else {
-            alert(result.message || "Erreur d'inscription.");
+            displayMessage('signup-message',result.message || "Erreur d'inscription.",'error');
           }
         } catch (error) {
           console.error("Erreur lors de l'inscription :", error);
-          alert("Impossible de se connecter au serveur.");
+          displayMessage('signup-message',"Impossible de se connecter au serveur.",'error');
         }
       });
     }
   });
-  
+
+  function displayMessage(elementId, message, type = "success") {
+    const el = document.getElementById(elementId);
+    el.textContent = message;
+    el.style.color = type === "error" ? "red" : "limegreen";
+}

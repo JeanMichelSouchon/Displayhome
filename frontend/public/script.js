@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const noteText = noteArea.value;
 
         if (noteText.trim() === '') {
-            alert('Veuillez écrire une note avant de sauvegarder.');
+            displayMessage('note-message','Veuillez écrire une note avant de sauvegarder.','error');
             return;
         }
 
@@ -61,15 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                alert('Note enregistrée !');
+                displayMessage('note-message','Note enregistrée !','success');
                 noteArea.value = ''; // Réinitialiser la zone de texte
                 loadNotes(); // Recharger les notes
             } else {
-                alert('Erreur lors de l\'enregistrement de la note.');
+                displayMessage('note-message','Erreur lors de l\'enregistrement de la note.','error');
             }
         } catch (error) {
             console.error('Erreur de réseau ou autre:', error);
-            alert('Une erreur est survenue lors de l\'enregistrement de la note.');
+            displayMessage('note-message','Une erreur est survenue lors de l\'enregistrement de la note.','error');
         }
     });
 
@@ -124,10 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(response => {
             if (response.ok) {
-                alert('Note supprimée avec succès');
+                displayMessage('note-message','Note supprimée avec succès','success');
                 loadNotes(); // Recharger les notes après suppression
             } else {
-                alert('Erreur lors de la suppression de la note.');
+                displayMessage('note-message','Erreur lors de la suppression de la note.','error');
             }
         })
         .catch(error => console.error('Erreur de suppression de la note :', error));
@@ -136,3 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Charger les notes existantes au chargement de la page
     loadNotes();
 });
+function displayMessage(elementId, message, type = "success") {
+    const el = document.getElementById(elementId);
+    el.textContent = message;
+    el.style.color = type === "error" ? "red" : "limegreen";
+}
