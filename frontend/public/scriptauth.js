@@ -1,3 +1,4 @@
+const { default: api } = require("./api");
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.querySelector("#login-form");
@@ -11,18 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.querySelector("#login-password").value;
   
         try {
-          const response = await fetch("https://backend-service-387352143812.europe-west9.run.app/auth/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, password })
-          });
+          const response = await api.post('/auth/signup',JSON.stringify({ username, email}));
   
           const result = await response.json();
   
           if (response.ok) {
             displayMessage('login-message',"Connexion réussie !",'success');
+            localStorage.setItem('token', response.token);
             window.location.href = 'home.html';
           } else {
             displayMessage('login-message',result.message || "Erreur de connexion.",'error');
@@ -43,13 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = document.querySelector("#signup-password").value;
   
         try {
-          const response = await fetch("https://backend-service-387352143812.europe-west9.run.app/auth/signup", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ username, email, password })
-          });
+          
+          const response = await api.post('/auth/signup',JSON.stringify({ username, email, password }));
   
           const result = await response.json();
   

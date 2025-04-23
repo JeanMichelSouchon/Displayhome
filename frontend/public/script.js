@@ -1,3 +1,4 @@
+const { default: api } = require("./api");
 // Planète en 3D avec Three.js
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -52,13 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Envoyer la note au backend via une requête POST
-            const response = await fetch('https://backend-service-387352143812.europe-west9.run.app/notes/add', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ note: noteText })
-            });
+            const response =await api.post('/notes/add',JSON.stringify({ note: noteText }));
+
 
             if (response.ok) {
                 displayMessage('note-message','Note enregistrée !','success');
@@ -75,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fonction pour récupérer et afficher les notes
     function loadNotes() {
-        fetch('https://backend-service-387352143812.europe-west9.run.app/notes/all') // Assurez-vous que votre API est accessible à cette route
+        api.get('/notes/all')// Assurez-vous que votre API est accessible à cette route
             .then(response => response.json())
             .then(notes => {
                 notesList.innerHTML = ''; // Vide la liste des notes existantes avant de réafficher
@@ -119,9 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fonction pour supprimer une note
     function deleteNote(noteId) {
-        fetch(`https://backend-service-387352143812.europe-west9.run.app/notes/delete/${noteId}`, {
-            method: 'DELETE',
-        })
+        api.delete(`/notes/delete/${noteId}`)
         .then(response => {
             if (response.ok) {
                 displayMessage('note-message','Note supprimée avec succès','success');
