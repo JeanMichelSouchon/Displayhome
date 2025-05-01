@@ -11,6 +11,7 @@ body {
   }
   
   .container {
+    /* margin-top: 35px; */
     text-align: center;
     width: 100%;
     max-width: 500px;
@@ -57,4 +58,43 @@ body {
     margin-top: 10px;
     font-weight: bold;
     font-size: 0.95rem;
+}
+#window-controls {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(30, 30, 30, 0.9);
+  -webkit-app-region: drag;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+#window-title {
+  color: white;
+  font-size: 14px;
+}
+
+#window-buttons {
+  display: flex;
+  gap: 5px;
+  -webkit-app-region: no-drag; /* rendre les boutons cliquables */
+}
+
+#window-buttons button {
+  background: none;
+  border: none;
+  color: white;
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#window-buttons button:hover {
+  background: rgba(255, 255, 255, 0.2);
 }

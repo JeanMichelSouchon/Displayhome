@@ -1,18 +1,29 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
+const { ipcMain } = require('electron');
+
 
 let win;
 
 function createWindow() {
   // Créer la fenêtre du navigateur
   win = new BrowserWindow({
-    width: 1024,
-    height: 768,
+    width: 1920,
+    height: 1080,
+    frame:false,
+    icon: path.join(__dirname, 'display-frame.png'),
     webPreferences: {
       nodeIntegration: true, // Pour activer l'intégration de Node.js dans ton frontend
       contextIsolation: false,
     }
   });
+  ipcMain.on('window-control', (event, action) => {
+    if (!win) return;
+    if (action === 'minimize') win.minimize();
+    if (action === 'maximize') win.isMaximized() ? win.unmaximize() : win.maximize();
+    if (action === 'close') win.close();
+  });
+  
 
   // Charger le fichier HTML d'accueil (home.html)
   win.loadFile(path.join(__dirname, 'public', 'index.html'));

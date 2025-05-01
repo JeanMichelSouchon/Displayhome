@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 
 // Création d'une instance Axios avec une configuration de base
 const api = axios.create({
@@ -10,18 +10,18 @@ const api = axios.create({
 });
 
 // Intercepteur pour ajouter le token JWT à chaque requête
-api.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers = config.headers || {};
-      config.headers['Authorization'] = `Bearer ${token}`;
-    } else {
-        window.location.href = 'index.html';
-    }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
+// api.interceptors.request.use(
+//   (config) => {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//       config.headers = config.headers || {};
+//       config.headers['Authorization'] = `Bearer ${token}`;
+//     } else {
+//         window.location.href = 'index.html';
+//     }
+//     return config;
+//   },
+//   (error) => Promise.reject(error)
+// );
 
-export default api;
+module.exports = api;

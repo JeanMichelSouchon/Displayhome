@@ -16,6 +16,7 @@ body {
 }
 
 #container {
+    margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,14 +36,16 @@ body {
 #radio-widget {
     background-color: rgba(240, 248, 255, 0.431);
     border: 2px black solid;
-    border-radius: 3px;
+    border-radius: 10px;
     margin-top: 5px;
     margin-left: 5px;
     margin-bottom: 5px;
     height: 99%;
+    width: 50vh;
     position: absolute;
     display: flex;
     flex-direction: column;
+    padding-right: 10px;
     flex-wrap: wrap;
     z-index: 2;
 }
@@ -59,7 +62,7 @@ body {
     right: 10px;
     background-color: rgba(240, 248, 255, 0.431);
     border: 2px black solid;
-    border-radius: 3px;
+    border-radius: 10px;
     margin-top: 5px;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -74,12 +77,7 @@ body {
     align-items: center;
 }
 
-#news iframe {
-    overflow-y: hidden;
-}
-
 #note-section {
-    margin-top: 10px;
     padding: 10px;
     background: white;
     border-radius: 5px;
@@ -87,6 +85,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 64vh;
+    margin: 5px;
 }
 
 #note-section h4 {
@@ -121,9 +121,10 @@ body {
 #saved-notes {
     margin-top: 20px;
     width: 90%;
-    max-height: 400px;
+    max-height: 40vh;
     overflow-y: auto;
 }
+
 #no-notes-message {
     background-color: #f9f9f9;
     border: 1px solid #ccc;
@@ -134,8 +135,10 @@ body {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    color: gray; font-style: italic;
+    color: gray; 
+    font-style: italic;
 }
+
 #notes-list {
     list-style-type: none;
     padding: 0;
@@ -170,8 +173,180 @@ body {
     font-style: italic;
     color: #666;
 }
+
 .message {
     margin-top: 10px;
     font-weight: bold;
     font-size: 0.95rem;
+}
+
+#window-controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(30, 30, 30, 0.9);
+    -webkit-app-region: drag;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#window-title {
+    color: white;
+    font-size: 14px;
+}
+
+#window-buttons {
+    display: flex;
+    gap: 5px;
+    -webkit-app-region: no-drag; /* rendre les boutons cliquables */
+}
+
+#window-buttons button {
+    background: none;
+    border: none;
+    color: white;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#window-buttons button:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+#time-container {
+    position: absolute;
+    top: 20px;
+    left: 50%; /* centre horizontalement */
+    transform: translateX(-50%);
+    display: flex; /* aligne horizontalement */
+    align-items: center; /* centre verticalement les enfants */
+    gap: 10px; /* espace entre l’heure et le bouton */
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#time-overlay {
+    color: white;
+    font-size: 2rem;
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#diconnect button {
+    background-color: #000;   /* Fond noir */
+    color: white;             /* Texte blanc */
+    border: 2px solid white;  /* Bordure blanche */
+    padding: 10px 20px;       /* Espacement interne */
+    border-radius: 8px;       /* Bords arrondis */
+    cursor: pointer;          /* Curseur pointeur */
+    font-size: 1rem;          /* Taille de texte */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+#diconnect button:hover {
+    background-color: white;  /* Fond blanc au survol */
+    color: black;             /* Texte noir au survol */
+    transform: scale(1.05);   /* Légère mise à l’échelle */
+}
+
+#shape-buttons {
+    position: absolute;
+    bottom: 20px;            /* 20px du bas */
+    left: 50%;               /* centré horizontalement */
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;               /* espacement entre les boutons */
+}
+
+#shape-buttons button {
+    background-color: #000;   /* Fond noir */
+    color: white;             /* Texte blanc */
+    border: 2px solid white;  /* Bordure blanche */
+    padding: 10px 20px;       /* Espacement interne */
+    border-radius: 8px;       /* Bords arrondis */
+    cursor: pointer;          /* Curseur pointeur */
+    font-size: 1rem;          /* Taille de texte */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+#shape-buttons button:hover {
+    background-color: white;  /* Fond blanc au survol */
+    color: black;             /* Texte noir au survol */
+    transform: scale(1.05);   /* Légère mise à l’échelle */
+}
+
+/* Media Queries pour rendre la page responsive */
+
+/* Tablettes (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    #container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #radio-widget, #news {
+        width: 90vw;
+        height: auto;
+        position: relative;
+    }
+
+    #planet-container {
+        height: 50vh;
+    }
+
+    #note-section {
+        height: auto;
+        width: 90%;
+    }
+
+    #window-controls {
+        height: 25px;
+    }
+
+    #window-buttons button {
+        font-size: 12px;
+    }
+}
+
+/* Mobiles (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    #container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    #radio-widget, #news {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    #planet-container {
+        height: 40vh;
+    }
+
+    #note-section {
+        width: 100%;
+        height: auto;
+    }
+
+    #shape-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
