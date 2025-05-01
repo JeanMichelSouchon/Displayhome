@@ -1,6 +1,23 @@
 {
   "devDependencies": {
-    "electron": "^35.2.0"
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.DisplayHome.electron",
+    "productName": "DisplayHome",
+    "win": {
+      "target": ["nsis"],
+      "icon": "./display-frame.png"
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "./display-frame.png"
+    },
+    "linux": {
+      "target": ["AppImage"],
+      "icon": "./display-frame.png"
+    }
   },
   "name": "frontend",
   "version": "1.0.0",
@@ -67,7 +84,8 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder"
   },
   "keywords": [],
   "author": "",

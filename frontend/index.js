@@ -13,7 +13,7 @@ function createWindow() {
     frame:false,
     icon: path.join(__dirname, 'display-frame.png'),
     webPreferences: {
-      nodeIntegration: true, // Pour activer l'intégration de Node.js dans ton frontend
+      nodeIntegration: true, 
       contextIsolation: false,
     }
   });
@@ -28,8 +28,7 @@ function createWindow() {
   // Charger le fichier HTML d'accueil (home.html)
   win.loadFile(path.join(__dirname, 'public', 'index.html'));
 
-  // Ouvrir les outils de développement pour le debug
-  win.webContents.openDevTools();
+
 
   // Fermer la fenêtre quand l'application est fermée
   win.on('closed', () => {

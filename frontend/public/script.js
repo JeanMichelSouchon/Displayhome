@@ -11,8 +11,7 @@ const material = new THREE.MeshBasicMaterial({ color: 0x0077ff, wireframe: true 
 const planet = new THREE.Mesh(geometry, material);
 scene.add(planet);
 
-// Ajustement de la position de la caméra pour bien voir la sphère
-camera.position.z = 8; // Recule la caméra pour mieux voir la sphère
+camera.position.z = 8; 
 
 function animate() {
     requestAnimationFrame(animate);
@@ -41,10 +40,10 @@ function changeShape(shape) {
             newGeometry = new THREE.SphereGeometry(4, 64, 64);
             break;
         case 'cube':
-            newGeometry = new THREE.BoxGeometry(8, 4, 8);
+            newGeometry = new THREE.BoxGeometry(4, 4, 4);
             break;
         case 'triangle':
-            newGeometry = new THREE.ConeGeometry(4, 6, 9); // 3 faces = triangle base
+            newGeometry = new THREE.ConeGeometry(4, 6, 9); 
             break;
         default:
             console.warn("Forme non reconnue :", shape);
