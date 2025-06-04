@@ -13,6 +13,7 @@ body {
     background-color: #000000;
     color: white;
     flex-direction: column;
+    overflow-y: hidden;
 }
 
 #container {
@@ -40,7 +41,7 @@ body {
     margin-top: 5px;
     margin-left: 5px;
     margin-bottom: 5px;
-    height: 99%;
+    height:auto;
     width: 50vh;
     position: absolute;
     display: flex;
